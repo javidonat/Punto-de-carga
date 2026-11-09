@@ -1,13 +1,30 @@
 # ⚡ Punto de recarga
 
-Aplicación para repartir los turnos de los puntos de recarga de coches eléctricos del instituto (Proyecto 3).
+Aplicación web para repartir los turnos de los puntos de recarga de coches eléctricos del instituto. Cada usuario marca en qué horas puede cargar y la aplicación reparte los puntos de forma justa: tiene prioridad quien menos horas lleva.
 
-- `backend/` → API REST con **Node.js + Express + MongoDB (Mongoose)**, con la misma estructura que PlanVLC. Ya está hecho.
-- `frontend/` → HTML, CSS y JavaScript puro con módulos (`import`/`export`). Es lo que hacéis vosotros.
+## Qué se puede hacer
+
+**Usuarios**
+- Marcar su horario semanal (las horas en las que pueden cargar).
+- Ver sus turnos de la semana y cancelar los que aún no han empezado.
+- Ausentarse un día, una semana o hasta nuevo aviso con un botón.
+- Confirmar después de cada turno si han cargado, o avisar de que su sitio estaba ocupado.
+- Recibir avisos (turnos nuevos, penalizaciones, incidencias resueltas) y ver su histórico de horas.
+
+**Administradores**
+- Gestionar los puntos de recarga (añadir, editar, marcar como averiados).
+- Gestionar los usuarios (editar sus datos, dar de baja, hacer admin).
+- Ver y ajustar el reparto de cada semana, y poner o quitar turnos a mano.
+- Resolver las incidencias y ver el histórico de todos.
+
+## Tecnologías
+
+- `backend/` → API REST con **Node.js, Express y MongoDB (Mongoose)**. Validación con **Zod**, contraseñas con **argon2** y sesiones con **JWT**.
+- `frontend/` → **HTML, CSS y JavaScript** sin frameworks, con módulos (`import`/`export`).
 
 ## Cómo arrancarlo
 
-Necesitas Node.js y MongoDB funcionando en tu ordenador (el mismo que usas para PlanVLC).
+Necesitas **Node.js** y **MongoDB** funcionando en tu ordenador.
 
 1. Dentro de `backend`, copia `.env.example` a un archivo nuevo llamado `.env` y rellena `SECRET` con una clave larga. Para generar una:
    ```bash
@@ -28,7 +45,7 @@ Necesitas Node.js y MongoDB funcionando en tu ordenador (el mismo que usas para 
 - **El primero que se registra es el administrador** (si usas el seed, el admin es `admin@recarga.com`).
 - Las sesiones usan **JWT** y caducan a los 7 días (`JWT_EXPIRES_IN` en el `.env`).
 
-## Estructura del backend (igual que PlanVLC)
+## Estructura del backend
 
 ```
 src/
@@ -39,15 +56,16 @@ src/
   ctrls/           reciben la petición y devuelven la respuesta JSON
   services/        la lógica (reglas del negocio). assignment.service.js = el reparto de turnos
   repos/           las consultas a MongoDB (la única capa que habla con la base de datos)
-  models/          los esquemas de Mongoose (users, chargers, availabilities, shifts, settings)
+  models/          los esquemas de Mongoose (users, chargers, availabilities, shifts, absences,
+                   notifications, incidents, penalties, cancellations, settings)
   schemas/         validación de los datos que llegan (Zod)
-  middleware/      autenticación (JWT), autorización (admin), validación y errores
+  middleware/      autenticación (JWT), permisos (admin / usuario), validación y errores
   seed.js          datos de prueba
 ```
 
 ## Respuestas de la API
 
-Todas siguen el mismo formato que PlanVLC:
+Todas siguen el mismo formato:
 
 ```js
 { ok: true, message: "Punto de recarga creado correctamente", data: { ... } }   // bien
