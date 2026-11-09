@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Puntos de recarga</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+      <h1>Puntos de recarga</h1>
+      <p class="subtitulo">Añade puntos, márcalos como averiados o quítalos.</p>
+
+      <table class="tabla">
+        <thead>
+          <tr><th>Nombre</th><th>Tipo</th><th>Potencia</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody id="puntos"></tbody>
+      </table>
+
+      <h2 id="titulo-formulario">Añadir punto de recarga</h2>
+      <form id="formulario" class="formulario-admin">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" required>
+        <label for="tipo">Tipo de conector</label>
+        <input id="tipo" placeholder="Tipo 2, Schuko...">
+        <label for="potencia">Potencia (kW)</label>
+        <input id="potencia" type="number" min="0" step="0.1">
+        <button type="submit" id="enviar">Añadir</button>
+        <button type="button" id="cancelar-edicion" class="secundario" hidden>Cancelar edición</button>
+      </form>
+      <p id="mensaje" class="error"></p>
+    </main>
+
+    <script type="module" src="js/admin-puntos.js"></script>
+</body>
+</html>

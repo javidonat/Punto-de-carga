@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Histórico</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Histórico</h1>
+        <section id="seccion-usuario" hidden>
+            <p>Horas de carga en total: <strong id="total">…</strong></p>
+            <p>Horas de penalización: <strong id="penalizacion">…</strong></p>
+
+            <h2>Mis horas por semana</h2>
+            <table class="tabla">
+                <thead>
+                <tr><th>Semana</th><th>Horas</th></tr>
+                </thead>
+                <tbody id="semanas"></tbody>
+            </table>
+        </section>
+
+        <section id="seccion-admin" hidden>
+            <h2>Horas de cada usuario</h2>
+            <table class="tabla">
+            <thead>
+                <tr><th>Usuario</th><th>Email</th><th>Horas</th><th>Penalización</th></tr>
+            </thead>
+            <tbody id="usuarios"></tbody>
+            </table>
+        </section>
+
+        <p id="mensaje" class="error"></p>
+    </main>
+
+    <script type="module" src="js/historico.js"></script>
+</body>
+</html>

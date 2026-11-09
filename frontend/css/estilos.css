@@ -1,0 +1,129 @@
+/* Estilos comunes de toda la aplicación */
+:root {
+  --verde: #16a34a;
+  --verde-oscuro: #15803d;
+  --gris: #6b7280;
+  --fondo: #f3f4f6;
+  --rojo: #dc2626;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--fondo);
+  color: #111827;
+}
+
+/* Login y registro: la tarjeta en el centro de la pantalla */
+.pantalla-centrada {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.tarjeta {
+  background: white;
+  width: 100%;
+  max-width: 380px;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 { margin: 0 0 8px; }
+.subtitulo { color: var(--gris); margin: 0 0 24px; }
+
+label { display: block; margin: 12px 0 4px; font-weight: 600; font-size: 14px; }
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--verde);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { background: var(--verde-oscuro); }
+
+.error { color: var(--rojo); min-height: 1em; margin: 8px 0 0; font-size: 14px; }
+.exito { color: var(--verde-oscuro); min-height: 1em; margin: 8px 0 0; font-size: 14px; }
+.enlace { text-align: center; margin-top: 20px; font-size: 14px; }
+a { color: var(--verde-oscuro); }
+
+/* Páginas con sesión: barra de arriba y contenido */
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 24px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+.cabecera nav { display: flex; gap: 16px; flex-wrap: wrap; }
+.cabecera nav a.activo { font-weight: bold; }
+
+.contenido { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+/* Mi horario */
+.horario { border-collapse: collapse; width: 100%; margin: 16px 0; }
+.horario th, .horario td { border: 1px solid #ddd; padding: 6px; text-align: center; font-size: 14px; }
+.horario td { cursor: pointer; height: 28px; }
+.horario td:hover { background: #eef5ee; }
+.horario td.marcada { background: var(--verde); }
+
+/* Mis turnos */
+.semana { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 16px 0; }
+.semana button { width: auto; margin-top: 0; padding: 8px 14px; font-size: 14px; }
+.turno { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: white; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06); }
+.turno h3 { margin: 0 0 6px; font-size: 17px; }
+.dia { text-transform: capitalize; }
+.turno .cancelar { width: auto; margin-top: 0; padding: 8px 14px; font-size: 14px; background: var(--rojo); }
+.turno .cancelar:hover { background: #b91c1c; }
+.turno p { margin: 0; }
+
+/* Inicio */
+h2 { margin: 28px 0 10px; font-size: 20px; }
+.aviso { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 10px; padding: 12px 16px; }
+
+/* Tablas y botones de las pantallas de admin */
+.tabla { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06); }
+.tabla th, .tabla td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+.tabla th { background: #f9fafb; }
+.acciones { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+button.pequeno { width: auto; margin-top: 0; padding: 6px 10px; font-size: 13px; }
+button.peligro { background: var(--rojo); }
+button.peligro:hover { background: #b91c1c; }
+.estado { padding: 2px 10px; border-radius: 999px; font-size: 13px; }
+.estado.ok { background: #dcfce7; color: var(--verde-oscuro); }
+.estado.mal { background: #fee2e2; color: var(--rojo); }
+.formulario-admin { max-width: 380px; }
+button.secundario { background: var(--gris); }
+button.secundario:hover { background: #4b5563; }
+
+/* Botones de las horas del turno a mano */
+.horas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
+.horas button { margin-top: 0; padding: 8px 0; font-size: 13px; background: white; color: #111827; border: 1px solid #d1d5db; }
+.horas button:hover { background: #f3f4f6; }
+.horas button.marcada { background: var(--verde); color: white; border-color: var(--verde); }
+
+/* Botones rápidos de las ausencias: en fila y del tamaño de su texto */
+.botones-ausencia { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.botones-ausencia button { width: auto; margin-top: 0; }

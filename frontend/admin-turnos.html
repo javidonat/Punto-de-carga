@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Turnos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Turnos de la semana</h1>
+        <div class="semana">
+            <button id="anterior">← Anterior</button>
+            <strong id="titulo-semana"></strong>
+            <button id="siguiente">Siguiente →</button>
+        </div>
+        <button id="generar">Rehacer el reparto de esta semana</button>
+        <button id="mostrar-formulario" class="secundario">Añadir un turno a mano</button>
+
+        <form id="formulario" class="formulario-admin" hidden>
+            <label for="usuario">Usuario</label>
+            <select id="usuario" required></select>
+            <label for="punto">Punto de recarga</label>
+            <select id="punto" required></select>
+            <label for="fecha">Día</label>
+            <input id="fecha" type="date" required>
+            <label>Hora</label>
+            <div id="horas" class="horas"></div>
+            <button type="submit">Añadir turno</button>
+        </form>
+        <p id="mensaje" class="error"></p>
+
+        <table class="tabla">
+            <thead>
+            <tr><th>Día</th><th>Hora</th><th>Punto</th><th>Usuario</th><th>Tipo</th><th></th></tr>
+            </thead>
+            <tbody id="turnos"></tbody>
+        </table>
+    </main>
+
+    <script type="module" src="js/admin-turnos.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Mi horario</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Mi horario</h1>
+        <p class="subtitulo">Haz clic en las horas en las que puedes cargar el coche.</p>
+        <table id="horario" class="horario"></table>
+        <button id="guardar">Guardar</button>
+        <h2>¿No vas a venir?</h2>
+        <p class="subtitulo">Esos días no te darán turnos y los que tengas pasarán a otros. No hace falta tocar tu horario.</p>
+        <div class="botones-ausencia">
+        <button class="secundario" data-ausencia="hoy">Hoy no vengo</button>
+        <button class="secundario" data-ausencia="esta">Esta semana no vengo</button>
+        <button class="secundario" data-ausencia="siguiente">La semana que viene no vengo</button>
+        <button class="peligro" data-ausencia="indefinida">Desactivarme hasta nuevo aviso</button>
+        </div>
+
+        <form id="form-ausencia" class="formulario-admin">
+        <h3>Otras fechas</h3>
+        <label for="desde">Desde</label>
+        <input id="desde" type="date" required>
+        <label for="hasta">Hasta (incluido)</label>
+        <input id="hasta" type="date" required>
+        <button type="submit">Guardar ausencia</button>
+        </form>
+
+        <h3>Tus ausencias</h3>
+        <div id="ausencias"></div>
+        <p id="mensaje" class="error"></p>
+    </main>
+
+    <script type="module" src="js/horario.js"></script>
+</body>
+</html>

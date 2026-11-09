@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Mis turnos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Mis turnos</h1>
+        <div class="semana">
+            <button id="anterior">← Anterior</button>
+            <strong id="titulo-semana"></strong>
+            <button id="siguiente">Siguiente →</button>
+        </div>
+        <div id="turnos"></div>
+        <p id="mensaje" class="error"></p>
+    </main>
+
+    <script type="module" src="js/turnos.js"></script>
+</body>
+</html>

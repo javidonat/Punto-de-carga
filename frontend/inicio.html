@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punto de recarga - Inicio</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <strong>⚡ Punto de recarga</strong>
+    <nav id="menu"></nav>
+  </header>
+
+  <main class="contenido">
+    <h1>Hola, <span id="nombre"></span></h1>
+    <p id="rol" class="subtitulo"></p>
+
+    <section id="seccion-usuario" hidden>
+      <div id="aviso"></div>
+      <h2>Tu próximo turno</h2>
+      <div id="proximo"></div>
+      <p>Horas cargadas en total: <strong id="horas">…</strong></p>
+    </section>
+
+    <div id="resumen-admin"></div>
+    <p id="mensaje" class="error"></p>
+  </main>
+
+  <script type="module" src="js/inicio.js"></script>
+</body>
+</html>

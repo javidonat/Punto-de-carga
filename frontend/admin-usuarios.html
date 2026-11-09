@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Usuarios</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Usuarios</h1>
+        <p class="subtitulo">Edita, da de baja, haz admin o elimina usuarios.</p>
+
+        <form id="formulario" class="formulario-admin" hidden>
+            <h2 id="titulo-formulario">Editar usuario</h2>
+            <label for="nombre">Nombre</label>
+            <input id="nombre" required>
+            <label for="email">Email</label>
+            <input id="email" type="email" required>
+            <label for="password">Contraseña nueva</label>
+            <input id="password" type="password" minlength="4" placeholder="Déjala vacía para no cambiarla">
+            <button type="submit">Guardar cambios</button>
+            <button type="button" id="cancelar-edicion" class="secundario">Cancelar</button>
+        </form>
+        <p id="mensaje" class="error"></p>
+
+        <table class="tabla">
+            <thead>
+            <tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Estado</th><th>Horas</th><th>Penalización</th><th></th></tr>
+            </thead>
+            <tbody id="usuarios"></tbody>
+        </table>
+    </main>
+
+    <script type="module" src="js/admin-usuarios.js"></script>
+</body>
+</html>
