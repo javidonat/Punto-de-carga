@@ -181,7 +181,7 @@ El reparto (`services/assignment.service.js`) recorre cada día y cada hora de l
 - **Las cancelaciones se recuerdan** (colección `cancellations`): a quien cancela una hora no se le vuelve a dar, ni al rellenar huecos ni al regenerar la semana.
 - Si un usuario **desmarca horas** de su horario, pierde los turnos automáticos que ya no encajan y se buscan sustitutos.
 - Si un usuario pone una **ausencia** (un día, una semana o indefinida), pierde sus turnos de esos días y se buscan sustitutos.
-- A quien recibe un turno al rellenar un hueco **le llega un aviso** (se ve en Inicio).
+- Si alguien **pierde un turno** (lo cancela, se ausenta, se le da de baja, se avería su punto...) y ese hueco pasa a otro usuario, a ese usuario **le llega un aviso** (se ve en Inicio). Los turnos del reparto normal no avisan: se ven en Mis turnos.
 - **Cada hora** se revisan los turnos sin confirmar: si acabó el día siguiente al turno y no se ha confirmado, pasa a `unconfirmed` y hay **penalización de 3 h** (una por día).
 
 ### Después de cargar: confirmar, incidencias y penalizaciones

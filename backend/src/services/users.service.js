@@ -64,7 +64,7 @@ const setActive = async (adminId, id, { isActive }) => {
   if (!isActive) {
     await shiftsRepo.deleteByUserFrom(id, today(), currentHour());
   }
-  await shiftsService.fillGaps();
+  await shiftsService.fillGaps(!isActive);
   return user;
 };
 
@@ -104,7 +104,7 @@ const setRole = async (adminId, id, { role }) => {
   if (role === ADMIN_ROLE) {
     await shiftsRepo.deleteByUserFrom(id, today(), currentHour());
   }
-  await shiftsService.fillGaps();
+  await shiftsService.fillGaps(role === ADMIN_ROLE);
   return user;
 };
 
@@ -118,7 +118,7 @@ const softDeleteUser = async (adminId, id) => {
     throw notFound();
   }
   await shiftsRepo.deleteByUserFrom(id, today(), currentHour());
-  await shiftsService.fillGaps();
+  await shiftsService.fillGaps(true);
   return user;
 };
 

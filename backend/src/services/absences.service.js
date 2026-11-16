@@ -25,7 +25,7 @@ const createMine = async (userId, { from, to = null }) => {
   const absence = await absencesRepo.create({ userId, from, to });
   // Fuera sus turnos de esos días (de ahora en adelante) y se reparten entre los demás
   await shiftsRepo.deleteByUserBetween(userId, from, to, today(), currentHour());
-  await shiftsService.fillGaps();
+  await shiftsService.fillGaps(true);
   return absence;
 };
 

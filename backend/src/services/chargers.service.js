@@ -84,7 +84,7 @@ const setActive = async (id, { isActive }) => {
   if (!isActive) {
     await shiftsRepo.deleteByChargerFrom(id, today(), currentHour());
   }
-  await shiftsService.fillGaps();
+  await shiftsService.fillGaps(!isActive);
   return charger;
 };
 
@@ -97,7 +97,7 @@ const softDeleteCharger = async (id) => {
     throw notFound();
   }
   await shiftsRepo.deleteByChargerFrom(id, today(), currentHour());
-  await shiftsService.fillGaps();
+  await shiftsService.fillGaps(true);
   return charger;
 };
 

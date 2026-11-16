@@ -137,7 +137,7 @@ const confirmMyShifts = async (userId, { ids, status }) => {
 const cancelShift = async (shift) => {
   await cancellationsRepo.create(shift.userId, shift.date, shift.hour);
   await shiftsRepo.deleteById(shift._id);
-  await fillGaps();
+  await fillGaps(true);
 };
 
 // ---------- Administración ----------
@@ -258,8 +258,10 @@ const generateWeek = async (day) => {
 
 // Rellena los huecos libres SIN mover a nadie: se llama sola cuando alguien cancela, se ausenta o cambia
 // su horario, se avería o se añade un punto de recarga, o se da de baja a un usuario.
-// Se rellena la semana actual y la siguiente si ya está generada. A quien recibe un turno nuevo le llega un aviso
-const fillGaps = async () => {
+// Se rellena la semana actual y la siguiente si ya está generada.
+// notify = true cuando los huecos son turnos que otra persona ha perdido (cancela, se ausenta, se da de baja...):
+// entonces a quien recibe esos turnos le llega un aviso. Al rellenar sin más (cada hora, horas nuevas...) no se avisa
+const fillGaps = async (notify = false) => {
   const thisWeek = mondayOf();
   const nextWeek = addDays(thisWeek, 7);
 
@@ -267,7 +269,9 @@ const fillGaps = async () => {
   if ((await shiftsRepo.countByWeek(nextWeek)) > 0) {
     created.push(...(await runAssignment(nextWeek)));
   }
-  await notifyNewShifts(created);
+  if (notify) {
+    await notifyNewShifts(created);
+  }
   return created.length;
 };
 
@@ -292,7 +296,7 @@ const adaptToNewSlots = async (userId, slots) => {
   if (notFitting.length > 0) {
     await shiftsRepo.deleteByIds(notFitting.map((shift) => shift._id));
   }
-  await fillGaps();
+  await fillGaps(notFitting.length > 0);
 };
 
 // POST /api/shifts: turno puesto a mano por el admin
