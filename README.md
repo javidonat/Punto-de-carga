@@ -164,7 +164,7 @@ Sin `week` se usa la semana actual. Vale cualquier día: se usa el lunes de su s
 | POST | `/` 👤 | `{ ids, description? }` | "mi punto estaba ocupado": el turno queda `blocked` y se apunta contra quien tenía ese punto la hora anterior |
 | GET | `/me` 👤 | | las que he puesto yo |
 | GET | `/` 👑 | | todas, primero las abiertas (con `reporterId`, `reportedUserId` y `chargerId` rellenos) |
-| PATCH | `/:id` 👑 | `{ status: "accepted" \| "rejected" }` | aceptada → penalización de 5 h para quien ocupó el sitio |
+| PATCH | `/:id` 👑 | `{ status: "accepted" \| "rejected", reportedUserId? }` | aceptada → penalización de 5 h para quien ocupó el sitio. Con `reportedUserId` el admin corrige quién fue (`null` = no se sabe) |
 
 ## Cómo se reparten los turnos
 

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import incidentsRepo from "../repos/incidents.repo.js";
 import shiftsRepo from "../repos/shifts.repo.js";
+import usersRepo from "../repos/users.repo.js";
 import shiftsService from "./shifts.service.js";
 import notificationsService from "./notifications.service.js";
 import penaltiesService from "./penalties.service.js";
@@ -53,11 +54,19 @@ const getAll = () => {
   return incidentsRepo.findAll();
 };
 
-// PATCH /api/incidents/:id  { status: "accepted" | "rejected" }  (admin)
+// PATCH /api/incidents/:id  { status: "accepted" | "rejected", reportedUserId? }  (admin)
+// Antes de resolverla, el admin puede cambiar quién ocupaba el sitio (null = no se sabe)
 // Aceptada → penalización para quien ocupaba el sitio. En los dos casos se avisa a quien la puso
-const resolveIncident = async (id, { status }) => {
+const resolveIncident = async (id, { status, reportedUserId }) => {
   validateId(id);
-  const incident = await incidentsRepo.resolve(id, status);
+  const changes = { status };
+  if (reportedUserId !== undefined) {
+    if (reportedUserId !== null && (!mongoose.isValidObjectId(reportedUserId) || !(await usersRepo.findById(reportedUserId)))) {
+      throw new AppError("El usuario elegido no existe", 400);
+    }
+    changes.reportedUserId = reportedUserId;
+  }
+  const incident = await incidentsRepo.resolve(id, changes);
   if (!incident) {
     throw new AppError("Incidencia no encontrada o ya resuelta", 404);
   }

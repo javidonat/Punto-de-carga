@@ -29,8 +29,9 @@ const findById = (id) => {
 };
 
 // Solo cambia si sigue abierta (para no resolver dos veces la misma)
-const resolve = (id, status) => {
-  return Incident.findOneAndUpdate({ _id: id, status: "open" }, { status }, { new: true }).lean();
+// Solo se puede resolver una abierta. changes = { status } y, si el admin lo ha corregido, reportedUserId
+const resolve = (id, changes) => {
+  return Incident.findOneAndUpdate({ _id: id, status: "open" }, changes, { new: true }).lean();
 };
 
 export default { create, findAll, findByReporter, findById, resolve };

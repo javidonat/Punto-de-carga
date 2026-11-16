@@ -11,6 +11,8 @@ const ESTADOS = {
   rejected: { texto: 'Rechazada', clase: 'mal' },
 };
 
+let usuarios = []; // los usuarios que se pueden elegir como "quien ocupaba el sitio"
+
 if (usuario) {
   pintarMenu(usuario);
   cargarIncidencias();
@@ -18,6 +20,8 @@ if (usuario) {
 
 async function cargarIncidencias() {
   try {
+    const todos = await api('/users');
+    usuarios = todos.filter((u) => u.role === 'user');
     const incidencias = await api('/incidents');
     pintarIncidencias(incidencias);
   } catch (error) {
@@ -37,10 +41,11 @@ function pintarIncidencias(incidencias) {
   for (const i of incidencias) {
     const estado = ESTADOS[i.status];
     // reportedUserId es null si nadie tenía ese punto la hora anterior
-    const ocupaba = i.reportedUserId ? i.reportedUserId.name : 'No se sabe';
-    // Solo las abiertas se pueden aceptar o rechazar
+    let ocupaba = i.reportedUserId ? i.reportedUserId.name : 'No se sabe';
+    // Solo las abiertas se pueden aceptar o rechazar, y antes el admin puede cambiar quién ocupaba el sitio
     let botones = '';
     if (i.status === 'open') {
+      ocupaba = selectorOcupaba(i);
       botones = `
         <div class="acciones">
           <button class="pequeno" data-id="${i._id}" data-estado="accepted">Aceptar</button>
@@ -62,14 +67,42 @@ function pintarIncidencias(incidencias) {
   tbody.innerHTML = html;
 }
 
+// Desplegable con los usuarios (menos quien avisa). Sale marcado el que ha deducido el servidor
+function selectorOcupaba(i) {
+  const actual = i.reportedUserId ? i.reportedUserId._id : '';
+  let opciones = '<option value="">No se sabe</option>';
+  for (const u of usuarios) {
+    if (u._id === i.reporterId._id) {
+      continue;
+    }
+    const marcado = u._id === actual ? 'selected' : '';
+    opciones += `<option value="${u._id}" ${marcado}>${u.name}</option>`;
+  }
+  return `<select id="ocupaba-${i._id}">${opciones}</select>`;
+}
+
+// Mensaje después de aceptar o rechazar. Solo se penaliza si se sabe quién ocupaba el sitio
+function textoResultado(incidencia) {
+  if (incidencia.status === 'rejected') {
+    return 'Incidencia rechazada.';
+  }
+  if (incidencia.reportedUserId) {
+    return 'Incidencia aceptada: se ha penalizado con 5 horas a quien ocupaba el sitio.';
+  }
+  return 'Incidencia aceptada. No se sabe quién ocupaba el sitio, así que no se penaliza a nadie.';
+}
+
 document.getElementById('incidencias').addEventListener('click', async (evento) => {
   const { id, estado } = evento.target.dataset;
   if (!id) {
     return;
   }
   try {
-    await api(`/incidents/${id}`, 'PATCH', { status: estado });
-    mostrarMensaje(estado === 'accepted' ? 'Incidencia aceptada: se ha penalizado a quien ocupaba el sitio.' : 'Incidencia rechazada.', false);
+    // El que esté elegido en el desplegable ('' = no se sabe → null)
+    const elegido = document.getElementById(`ocupaba-${id}`).value;
+    const datos = { status: estado, reportedUserId: elegido || null };
+    const incidencia = await api(`/incidents/${id}`, 'PATCH', datos);
+    mostrarMensaje(textoResultado(incidencia), false);
     cargarIncidencias();
   } catch (error) {
     mostrarMensaje(error.message, true);
