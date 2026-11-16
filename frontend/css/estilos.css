@@ -181,7 +181,6 @@ button.peligro:hover { background: #ffc6bf; }
 .nota .material-symbols-outlined { color: var(--verde); }
 .enlace { text-align: center; margin: 20px 0 0; font-size: 14px; color: var(--gris); }
 
-/* Imagen genérica */
 .ilustracion { display: block; width: 100%; max-width: 260px; margin: 0 auto 16px; }
 
 /* Cabecera de las páginas con sesión */

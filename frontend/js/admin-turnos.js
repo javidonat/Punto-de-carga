@@ -158,7 +158,7 @@ document.getElementById('horas').addEventListener('click', (evento) => {
     marcada.classList.remove('marcada');
   }
   boton.classList.add('marcada');
-  horaElegida = Number(boton.dataset.hora); // pasa el texto a número
+  horaElegida = Number(boton.dataset.hora);
 });
 
 document.getElementById('formulario').addEventListener('submit', async (evento) => {
