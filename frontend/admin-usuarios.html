@@ -15,7 +15,9 @@
 
     <main class="contenido">
         <h1>Usuarios</h1>
-        <p class="subtitulo">Edita, da de baja, haz admin o elimina usuarios.</p>
+        <p class="subtitulo">Crea, edita, da de baja, haz admin o elimina usuarios.</p>
+
+        <button id="nuevo" class="pequeno">+ Nuevo usuario</button>
 
         <form id="formulario" class="formulario-admin" hidden>
             <h2 id="titulo-formulario">Editar usuario</h2>
@@ -23,9 +25,16 @@
             <input id="nombre" required>
             <label for="email">Email</label>
             <input id="email" type="email" required>
-            <label for="password">Contraseña nueva</label>
+            <label for="password" id="texto-password">Contraseña nueva</label>
             <input id="password" type="password" minlength="4" placeholder="Déjala vacía para no cambiarla">
-            <button type="submit">Guardar cambios</button>
+            <div id="campo-rol" hidden>
+                <label for="rol">Rol</label>
+                <select id="rol">
+                    <option value="user">Usuario</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" id="enviar">Guardar cambios</button>
             <button type="button" id="cancelar-edicion" class="secundario">Cancelar</button>
         </form>
         <p id="mensaje" class="error"></p>

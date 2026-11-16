@@ -2,6 +2,14 @@ import { z } from "zod";
 import { ROLES } from "../models/constants.js";
 import { email, password, text } from "./common.schema.js";
 
+// POST /api/users (el admin crea un usuario; si no dice el rol, es un usuario normal)
+export const createUserSchema = z.object({
+  name: text("El nombre es obligatorio", "El nombre debe ser un texto").max(80, "El nombre no puede superar los 80 caracteres"),
+  email,
+  password: password("La contraseña es obligatoria"),
+  role: z.enum(ROLES, { error: `El rol tiene que ser ${ROLES.join(" o ")}` }).optional(),
+});
+
 // PATCH /api/users/:id/role
 export const roleSchema = z.object({
   role: z.enum(ROLES, { error: `El rol tiene que ser ${ROLES.join(" o ")}` }),

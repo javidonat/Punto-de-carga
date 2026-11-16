@@ -6,7 +6,7 @@ import absencesRepo from "../repos/absences.repo.js";
 import shiftsService from "./shifts.service.js";
 import AppError from "./utils/AppError.js";
 import { hashPassword } from "./utils/password.js";
-import { ADMIN_ROLE } from "../models/constants.js";
+import { ADMIN_ROLE, USER_ROLE } from "../models/constants.js";
 import { currentHour, today } from "./utils/dates.util.js";
 
 // ---------- Funciones auxiliares ----------
@@ -49,6 +49,12 @@ const getAllUsers = async () => {
       absence: absenceByUser[id] || null,
     };
   });
+};
+
+// POST /api/users { name, email, password, role }: el admin da de alta a alguien sin que tenga que registrarse.
+// No hace falta repartir turnos: hasta que no rellene su horario no puede recibir ninguno
+const createUser = async ({ name, email, password, role = USER_ROLE }) => {
+  return usersRepo.create({ name, email, role, passwordHash: await hashPassword(password) }); // email repetido → 409
 };
 
 // PATCH /api/users/:id/active: dar de alta o de baja. Al darlo de baja pierde sus turnos de ahora en adelante.
@@ -122,4 +128,4 @@ const softDeleteUser = async (adminId, id) => {
   return user;
 };
 
-export default { getAllUsers, updateUser, setActive, setRole, softDeleteUser };
+export default { getAllUsers, createUser, updateUser, setActive, setRole, softDeleteUser };

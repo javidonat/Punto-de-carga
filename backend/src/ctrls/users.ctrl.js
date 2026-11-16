@@ -10,6 +10,16 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+// POST /api/users
+const postUser = async (req, res, next) => {
+  try {
+    const user = await usersService.createUser(req.body);
+    res.status(201).json({ ok: true, message: "Usuario creado correctamente", data: user });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // PATCH /api/users/:id
 const patchUser = async (req, res, next) => {
   try {
@@ -54,4 +64,4 @@ const patchSoftDelete = async (req, res, next) => {
   }
 };
 
-export default { getUsers, patchUser, patchActive, patchRole, patchSoftDelete };
+export default { getUsers, postUser, patchUser, patchActive, patchRole, patchSoftDelete };

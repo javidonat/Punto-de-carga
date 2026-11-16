@@ -22,6 +22,12 @@ const findById = (id) => {
   return User.findOne({ _id: id, deletedAt: null }).lean();
 };
 
+// Crear un usuario. toJSON() quita passwordHash y tokenVersion (lo dice el modelo)
+const create = async (data) => {
+  const user = await User.create(data);
+  return user.toJSON();
+};
+
 // Dar de alta o de baja. Al darlo de baja se invalidan sus tokens (deja de poder entrar)
 const setActive = (id, isActive) => {
   const data = isActive ? { isActive } : { isActive, $inc: { tokenVersion: 1 } };
@@ -51,4 +57,4 @@ const softDelete = (id) => {
   ).lean();
 };
 
-export default { findAll, findActive, findAdmins, findById, update, setActive, setRole, softDelete };
+export default { findAll, findActive, findAdmins, findById, create, update, setActive, setRole, softDelete };

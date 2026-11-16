@@ -360,6 +360,9 @@ button.peligro:hover { background: #ffc6bf; }
 
 #leer-todos { margin-bottom: 12px; }
 .acciones { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+/* En una celda de tabla no puede ser flex (se descuadra la fila): los botones van en línea */
+.tabla td.acciones { display: table-cell; text-align: right; white-space: nowrap; }
+.tabla td.acciones button { margin: 2px; }
 
 /* Etiquetas de estado (pastillas) */
 .estado { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }

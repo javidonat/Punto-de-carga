@@ -134,6 +134,7 @@ Sin `week` se usa la semana actual. Vale cualquier día: se usa el lunes de su s
 | Método | Ruta | Envía |
 |---|---|---|
 | GET | `/` | devuelve también `totalHours` (cargadas), `penaltyHours` y `absence` (su ausencia de hoy o `null`) |
+| POST | `/` | `{ name, email, password, role? }`: crear un usuario (si no se dice el rol, `"user"`) |
 | PATCH | `/:id` | `{ name?, email?, password? }`: corregir datos o poner una contraseña nueva |
 | PATCH | `/:id/active` | `{ isActive: false }` = dar de baja |
 | PATCH | `/:id/role` | `{ role: "admin" }` o `"user"` (un admin no recibe turnos) |

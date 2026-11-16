@@ -5,7 +5,7 @@ import { mostrarMensaje, formatearFecha } from './utilidades.js';
 const usuario = protegerPagina('admin');
 
 let usuariosCargados = []; // los de la tabla para rellenar el formulario al editar
-let editandoId = null; // id del usuario que se está editando
+let editandoId = null; // id del usuario que se está editando (null = se está creando uno nuevo)
 
 if (usuario) {
   pintarMenu(usuario);
@@ -77,9 +77,32 @@ function empezarEdicion(u) {
   document.getElementById('email').value = u.email;
   document.getElementById('password').value = '';
   document.getElementById('titulo-formulario').textContent = `Editar ${u.name}`;
+  // Al editar, la contraseña es opcional y el rol se cambia con su botón de la tabla
+  document.getElementById('password').required = false;
+  document.getElementById('texto-password').textContent = 'Contraseña nueva';
+  document.getElementById('password').placeholder = 'Déjala vacía para no cambiarla';
+  document.getElementById('campo-rol').hidden = true;
+  document.getElementById('enviar').textContent = 'Guardar cambios';
   document.getElementById('formulario').hidden = false;
   document.getElementById('nombre').focus();
 }
+
+// El mismo formulario vacío para crear un usuario nuevo
+function empezarCreacion() {
+  editandoId = null;
+  document.getElementById('formulario').reset();
+  document.getElementById('titulo-formulario').textContent = 'Nuevo usuario';
+  // Al crear, la contraseña es obligatoria y se puede elegir el rol
+  document.getElementById('password').required = true;
+  document.getElementById('texto-password').textContent = 'Contraseña';
+  document.getElementById('password').placeholder = '';
+  document.getElementById('campo-rol').hidden = false;
+  document.getElementById('enviar').textContent = 'Crear usuario';
+  document.getElementById('formulario').hidden = false;
+  document.getElementById('nombre').focus();
+}
+
+document.getElementById('nuevo').addEventListener('click', empezarCreacion);
 
 // Vacía el formulario y lo vuelve a esconder
 function terminarEdicion() {
@@ -104,8 +127,14 @@ document.getElementById('formulario').addEventListener('submit', async (evento) 
   }
 
   try {
-    await api(`/users/${editandoId}`, 'PATCH', datos);
-    mostrarMensaje('Usuario modificado', false);
+    if (editandoId) {
+      await api(`/users/${editandoId}`, 'PATCH', datos);
+      mostrarMensaje('Usuario modificado', false);
+    } else {
+      datos.role = document.getElementById('rol').value;
+      await api('/users', 'POST', datos);
+      mostrarMensaje('Usuario creado', false);
+    }
     terminarEdicion();
     cargarUsuarios();
   } catch (error) {
