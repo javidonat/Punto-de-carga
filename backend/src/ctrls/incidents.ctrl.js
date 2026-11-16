@@ -10,6 +10,16 @@ const postIncident = async (req, res, next) => {
   }
 };
 
+// POST /api/incidents/manual
+const postManual = async (req, res, next) => {
+  try {
+    const incident = await incidentsService.createManualIncident(req.body);
+    res.status(201).json({ ok: true, message: "Incidencia creada", data: incident });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // GET /api/incidents/me
 const getMine = async (req, res, next) => {
   try {
@@ -40,4 +50,4 @@ const patchIncident = async (req, res, next) => {
   }
 };
 
-export default { postIncident, getMine, getAll, patchIncident };
+export default { postIncident, postManual, getMine, getAll, patchIncident };

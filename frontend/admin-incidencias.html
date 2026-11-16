@@ -16,6 +16,27 @@
     <main class="contenido">
         <h1>Incidencias</h1>
         <p class="subtitulo">Avisos de usuarios que encontraron su punto de recarga ocupado. Si aceptas una, quien ocupaba el sitio recibe una penalización de 5 horas.</p>
+        <button id="nueva" class="pequeno">+ Nueva incidencia</button>
+
+        <!-- Para apuntar una incidencia a mano (por ejemplo, si te la cuentan en persona) -->
+        <form id="form-incidencia" class="formulario-admin" hidden>
+            <h2>Nueva incidencia</h2>
+            <label for="avisa">Quién avisa</label>
+            <select id="avisa" required></select>
+            <label for="punto">Punto de recarga</label>
+            <select id="punto" required></select>
+            <label for="fecha">Día</label>
+            <input id="fecha" type="date" required>
+            <label for="hora">Hora</label>
+            <select id="hora" required></select>
+            <label for="ocupaba-nueva">Quién ocupaba el sitio</label>
+            <select id="ocupaba-nueva"></select>
+            <label for="descripcion">Qué pasó</label>
+            <input id="descripcion" maxlength="500" placeholder="Opcional">
+            <button type="submit">Crear incidencia</button>
+            <button type="button" id="cancelar-incidencia" class="secundario">Cancelar</button>
+        </form>
+
         <p id="mensaje" class="error"></p>
 
         <table class="tabla">

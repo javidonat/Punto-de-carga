@@ -17,7 +17,7 @@ Aplicación web para repartir los turnos de los puntos de recarga de coches elé
 - Gestionar los usuarios (editar sus datos, dar de baja, hacer admin).
 - Ver y ajustar el reparto de cada semana, y poner o quitar turnos a mano.
 - Elegir cómo se reparten las horas (quien menos lleva en total, esta semana o al azar) y poner un máximo de horas por semana y de horas seguidas.
-- Resolver las incidencias (corrigiendo quién ocupaba el sitio si hace falta) y ver el histórico de todos.
+- Apuntar incidencias a mano y resolverlas (corrigiendo quién ocupaba el sitio si hace falta) y ver el histórico de todos.
 
 ## Tecnologías
 
@@ -165,6 +165,7 @@ Sin `week` se usa la semana actual. Vale cualquier día: se usa el lunes de su s
 | Método | Ruta | Envía | Qué hace |
 |---|---|---|---|
 | POST | `/` 👤 | `{ ids, description? }` | "mi punto estaba ocupado": el turno queda `blocked` y se apunta contra quien tenía ese punto la hora anterior |
+| POST | `/manual` 👑 | `{ reporterId, chargerId, date, hour, reportedUserId?, description? }` | el admin apunta una incidencia a mano; queda abierta como las demás |
 | GET | `/me` 👤 | | las que he puesto yo |
 | GET | `/` 👑 | | todas, primero las abiertas (con `reporterId`, `reportedUserId` y `chargerId` rellenos) |
 | PATCH | `/:id` 👑 | `{ status: "accepted" \| "rejected", reportedUserId? }` | aceptada → penalización de 5 h para quien ocupó el sitio. Con `reportedUserId` el admin corrige quién fue (`null` = no se sabe) |

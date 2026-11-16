@@ -1,6 +1,6 @@
 import { api, protegerPagina } from './api.js';
 import { pintarMenu } from './menu.js';
-import { mostrarMensaje, formatearFecha, textoHora } from './utilidades.js';
+import { mostrarMensaje, formatearFecha, textoHora, hoy } from './utilidades.js';
 
 const usuario = protegerPagina('admin');
 
@@ -91,6 +91,69 @@ function textoResultado(incidencia) {
   }
   return 'Incidencia aceptada. No se sabe quién ocupaba el sitio, así que no se penaliza a nadie.';
 }
+
+// ---------- Nueva incidencia a mano ----------
+
+// Rellena los desplegables del formulario y lo enseña
+async function abrirFormulario() {
+  try {
+    const puntos = await api('/chargers');
+    let opcionesUsuarios = '';
+    for (const u of usuarios) {
+      opcionesUsuarios += `<option value="${u._id}">${u.name}</option>`;
+    }
+    document.getElementById('avisa').innerHTML = opcionesUsuarios;
+    document.getElementById('ocupaba-nueva').innerHTML = '<option value="">No se sabe</option>' + opcionesUsuarios;
+
+    let opcionesPuntos = '';
+    for (const p of puntos) {
+      opcionesPuntos += `<option value="${p._id}">${p.name}</option>`;
+    }
+    document.getElementById('punto').innerHTML = opcionesPuntos;
+
+    let opcionesHoras = '';
+    for (let h = 0; h < 24; h++) {
+      opcionesHoras += `<option value="${h}">${textoHora(h)}</option>`;
+    }
+    document.getElementById('hora').innerHTML = opcionesHoras;
+    document.getElementById('hora').value = new Date().getHours();
+    document.getElementById('fecha').value = hoy();
+
+    document.getElementById('form-incidencia').hidden = false;
+  } catch (error) {
+    mostrarMensaje(error.message, true);
+  }
+}
+
+function cerrarFormulario() {
+  document.getElementById('form-incidencia').reset();
+  document.getElementById('form-incidencia').hidden = true;
+}
+
+document.getElementById('nueva').addEventListener('click', abrirFormulario);
+document.getElementById('cancelar-incidencia').addEventListener('click', cerrarFormulario);
+
+document.getElementById('form-incidencia').addEventListener('submit', async (evento) => {
+  evento.preventDefault();
+  const datos = {
+    reporterId: document.getElementById('avisa').value,
+    chargerId: document.getElementById('punto').value,
+    date: document.getElementById('fecha').value,
+    hour: Number(document.getElementById('hora').value),
+    reportedUserId: document.getElementById('ocupaba-nueva').value || null,
+    description: document.getElementById('descripcion').value,
+  };
+  try {
+    await api('/incidents/manual', 'POST', datos);
+    mostrarMensaje('Incidencia creada. Ahora puedes aceptarla o rechazarla en la tabla.', false);
+    cerrarFormulario();
+    cargarIncidencias();
+  } catch (error) {
+    mostrarMensaje(error.message, true);
+  }
+});
+
+// ---------- Aceptar o rechazar ----------
 
 document.getElementById('incidencias').addEventListener('click', async (evento) => {
   const { id, estado } = evento.target.dataset;

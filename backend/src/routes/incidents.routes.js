@@ -4,17 +4,19 @@ import validate from "../middleware/validate.js";
 import authenticate from "../middleware/authentication.js";
 import { isAdmin, isUser } from "../middleware/authorization.js";
 import { idParamsSchema } from "../schemas/common.schema.js";
-import { incidentSchema, resolveSchema } from "../schemas/incidents.schema.js";
+import { incidentSchema, manualIncidentSchema, resolveSchema } from "../schemas/incidents.schema.js";
 
 const router = Router();
 
 // POST   /api/incidents      → "mi punto estaba ocupado" (body: { "ids": [...], "description": "..." })
+// POST   /api/incidents/manual → el admin la apunta a mano (body: { "reporterId", "chargerId", "date", "hour", "reportedUserId", "description" })
 // GET    /api/incidents/me   → las incidencias que he puesto yo
 // GET    /api/incidents      → todas (admin), primero las abiertas
 // PATCH  /api/incidents/:id  → aceptar o rechazar (admin, body: { "status": "accepted" | "rejected" })
 router.use(authenticate);
 
 router.post("/", isUser, validate({ body: incidentSchema }), incidentsCtrl.postIncident);
+router.post("/manual", isAdmin, validate({ body: manualIncidentSchema }), incidentsCtrl.postManual);
 router.get("/me", isUser, incidentsCtrl.getMine);
 router.get("/", isAdmin, incidentsCtrl.getAll);
 router.patch("/:id", isAdmin, validate({ params: idParamsSchema, body: resolveSchema }), incidentsCtrl.patchIncident);
