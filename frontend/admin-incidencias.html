@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Incidencias</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <strong>⚡ Punto de recarga</strong>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Incidencias</h1>
+        <p class="subtitulo">Avisos de usuarios que encontraron su punto de recarga ocupado. Si aceptas una, quien ocupaba el sitio recibe una penalización de 5 horas.</p>
+        <p id="mensaje" class="error"></p>
+
+        <table class="tabla">
+            <thead>
+            <tr><th>Fecha</th><th>Punto</th><th>Avisa</th><th>Ocupaba el sitio</th><th>Qué pasó</th><th>Estado</th><th></th></tr>
+            </thead>
+            <tbody id="incidencias"></tbody>
+        </table>
+    </main>
+
+    <script type="module" src="js/admin-incidencias.js"></script>
+</body>
+</html>

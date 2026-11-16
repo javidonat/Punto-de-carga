@@ -8,6 +8,7 @@ const ENLACES = [
   { texto: 'Puntos de recarga', href: 'admin-puntos.html', rol: 'admin' },
   { texto: 'Usuarios', href: 'admin-usuarios.html', rol: 'admin' },
   { texto: 'Turnos semana', href: 'admin-turnos.html', rol: 'admin' },
+  { texto: 'Incidencias', href: 'admin-incidencias.html', rol: 'admin' },
 ];
 
 export function pintarMenu(usuario) {
@@ -20,7 +21,6 @@ export function pintarMenu(usuario) {
     const a = document.createElement('a');
     a.href = enlace.href;
     a.textContent = enlace.texto;
-    // Marcamos la página en la que estamos
     const paginaActual = location.pathname.split('/').pop();
     if (paginaActual === enlace.href) {
       a.classList.add('activo');
