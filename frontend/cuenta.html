@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de recarga - Mi cuenta</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="icon" href="img/logo.svg">
+</head>
+<body>
+    <header class="cabecera">
+        <a href="inicio.html" class="logo"><img src="img/logo.svg" alt=""> Punto de recarga</a>
+        <nav id="menu"></nav>
+    </header>
+
+    <main class="contenido">
+        <h1>Mi cuenta</h1>
+        <p class="subtitulo"><span id="nombre"></span> · <span id="email"></span></p>
+
+        <form id="form-password" class="formulario-admin">
+            <h2>Cambiar la contraseña</h2>
+            <label for="actual">Contraseña actual</label>
+            <input id="actual" type="password" required>
+            <label for="nueva">Contraseña nueva</label>
+            <input id="nueva" type="password" minlength="4" required>
+            <label for="nueva2">Repite la contraseña nueva</label>
+            <input id="nueva2" type="password" minlength="4" required>
+            <button type="submit">Cambiar contraseña</button>
+        </form>
+        <p id="mensaje" class="error"></p>
+    </main>
+
+    <script type="module" src="js/cuenta.js"></script>
+</body>
+</html>

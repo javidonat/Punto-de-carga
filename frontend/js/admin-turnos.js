@@ -1,6 +1,6 @@
 import { api, protegerPagina } from './api.js';
 import { pintarMenu } from './menu.js';
-import { mostrarMensaje, formatearFecha, sumarDias, hoy, tituloSemana, yaHaEmpezado } from './utilidades.js';
+import { mostrarMensaje, formatearFecha, sumarDias, hoy, tituloSemana, yaHaEmpezado, textoHora } from './utilidades.js';
 
 const usuario = protegerPagina('admin');
 let semana = ''; // lunes de la semana que se ve '' es la actual
@@ -10,6 +10,7 @@ if (usuario) {
   pintarMenu(usuario);
   cargarTurnos();
   cargarFormulario();
+  cargarAjustes();
 }
 
 // Tabla turnos
@@ -28,11 +29,6 @@ async function cargarTurnos() {
   } catch (error) {
     mostrarMensaje(error.message, true);
   }
-}
-
-// 09:00 a partir del número 9
-function textoHora(hora) {
-  return `${String(hora).padStart(2, '0')}:00`;
 }
 
 // Una fila por turno cada turno es una hora
@@ -186,6 +182,33 @@ document.getElementById('formulario').addEventListener('submit', async (evento) 
     mostrarMensaje('Turno añadido', false);
     semana = fecha; // enseña la semana del turno nuevo el backend usa el lunes de ese día
     cargarTurnos();
+  } catch (error) {
+    mostrarMensaje(error.message, true);
+  }
+});
+
+// Ajustes del reparto (ampliación): cómo se elige a quién dar cada hora y los límites
+
+async function cargarAjustes() {
+  try {
+    const ajustes = await api('/shifts/settings');
+    document.getElementById('algoritmo').value = ajustes.algorithm;
+    document.getElementById('max-semana').value = ajustes.maxHoursPerWeek;
+    document.getElementById('max-seguidas').value = ajustes.maxConsecutiveHours;
+  } catch (error) {
+    mostrarMensaje(error.message, true);
+  }
+}
+
+document.getElementById('form-ajustes').addEventListener('submit', async (evento) => {
+  evento.preventDefault();
+  try {
+    await api('/shifts/settings', 'PATCH', {
+      algorithm: document.getElementById('algoritmo').value,
+      maxHoursPerWeek: Number(document.getElementById('max-semana').value),
+      maxConsecutiveHours: Number(document.getElementById('max-seguidas').value),
+    });
+    mostrarMensaje('Ajustes guardados. Se usarán en los próximos repartos (o pulsa "Rehacer el reparto").', false);
   } catch (error) {
     mostrarMensaje(error.message, true);
   }

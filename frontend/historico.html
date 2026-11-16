@@ -38,9 +38,25 @@
             </table>
         </section>
 
+        <h2>Gráfica de horas cargadas</h2>
+        <div class="grafica">
+            <select id="periodo">
+                <option value="day">Por día</option>
+                <option value="week" selected>Por semana</option>
+                <option value="month">Por mes</option>
+                <option value="year">Por año</option>
+            </select>
+            <select id="usuario-grafica" hidden>
+                <option value="">Todos los usuarios</option>
+            </select>
+            <canvas id="grafica"></canvas>
+        </div>
+
         <p id="mensaje" class="error"></p>
     </main>
 
+    <!-- Chart.js desde el CDN: crea la variable global Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
     <script type="module" src="js/historico.js"></script>
 </body>
 </html>

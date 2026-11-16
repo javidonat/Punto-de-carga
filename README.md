@@ -9,18 +9,20 @@ Aplicación web para repartir los turnos de los puntos de recarga de coches elé
 - Ver sus turnos de la semana y cancelar los que aún no han empezado.
 - Ausentarse un día, una semana o hasta nuevo aviso con un botón.
 - Confirmar después de cada turno si han cargado, o avisar de que su sitio estaba ocupado.
-- Recibir avisos (turnos nuevos, penalizaciones, incidencias resueltas) y ver su histórico de horas.
+- Recibir avisos (turnos que otro ha dejado, penalizaciones, incidencias resueltas) y ver su histórico de horas con una gráfica.
+- Cambiar su contraseña en Mi cuenta.
 
 **Administradores**
 - Gestionar los puntos de recarga (añadir, editar, marcar como averiados).
 - Gestionar los usuarios (editar sus datos, dar de baja, hacer admin).
 - Ver y ajustar el reparto de cada semana, y poner o quitar turnos a mano.
-- Resolver las incidencias y ver el histórico de todos.
+- Elegir cómo se reparten las horas (quien menos lleva en total, esta semana o al azar) y poner un máximo de horas por semana y de horas seguidas.
+- Resolver las incidencias (corrigiendo quién ocupaba el sitio si hace falta) y ver el histórico de todos.
 
 ## Tecnologías
 
 - `backend/` → API REST con **Node.js, Express y MongoDB (Mongoose)**. Validación con **Zod**, contraseñas con **argon2** y sesiones con **JWT**.
-- `frontend/` → **HTML, CSS y JavaScript** sin frameworks, con módulos (`import`/`export`).
+- `frontend/` → **HTML, CSS y JavaScript** sin frameworks, con módulos (`import`/`export`). Las gráficas usan **Chart.js** desde un CDN.
 
 ## Cómo arrancarlo
 

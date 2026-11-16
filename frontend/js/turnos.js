@@ -1,6 +1,6 @@
 import { api, protegerPagina } from './api.js';
 import { pintarMenu } from './menu.js';
-import { mostrarMensaje, sumarDias, hoy, tarjetaTurno, tituloSemana, yaHaEmpezado } from './utilidades.js';
+import { mostrarMensaje, sumarDias, tarjetaTurno, tituloSemana, yaHaEmpezado } from './utilidades.js';
 
 const usuario = protegerPagina('user');
 let semana = '';

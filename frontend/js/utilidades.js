@@ -47,3 +47,8 @@ export function lunesDe(fecha) {
   const diaSemana = (new Date(`${fecha}T12:00:00`).getDay() + 6) % 7; // 0 es lunes y 6 es domingo
   return sumarDias(fecha, -diaSemana);
 }
+
+// "09:00" a partir del número 9
+export function textoHora(hora) {
+  return `${String(hora).padStart(2, '0')}:00`;
+}

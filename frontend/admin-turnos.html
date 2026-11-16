@@ -42,6 +42,21 @@
             </thead>
             <tbody id="turnos"></tbody>
         </table>
+
+        <h2>Ajustes del reparto</h2>
+        <form id="form-ajustes" class="formulario-admin">
+            <label for="algoritmo">A quién se le da cada hora libre</label>
+            <select id="algoritmo">
+                <option value="hours">A quien menos horas lleva en total</option>
+                <option value="week">A quien menos horas lleva esta semana</option>
+                <option value="random">Al azar</option>
+            </select>
+            <label for="max-semana">Máximo de horas por semana (0 = sin límite)</label>
+            <input id="max-semana" type="number" min="0" max="168" required>
+            <label for="max-seguidas">Máximo de horas seguidas en el mismo punto</label>
+            <input id="max-seguidas" type="number" min="1" max="24" required>
+            <button type="submit">Guardar ajustes</button>
+        </form>
     </main>
 
     <script type="module" src="js/admin-turnos.js"></script>

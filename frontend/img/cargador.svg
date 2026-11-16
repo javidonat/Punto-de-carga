@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 180">
   <!-- suelo -->
-  <ellipse cx="170" cy="160" rx="155" ry="10" fill="#bbf7d0"/>
+  <ellipse cx="170" cy="160" rx="155" ry="10" fill="#dce9ff"/>
   <!-- poste de carga -->
-  <rect x="34" y="40" width="54" height="118" rx="10" fill="#15803d"/>
-  <rect x="44" y="52" width="34" height="26" rx="4" fill="#dcfce7"/>
-  <path d="M63 55 53 68h8l-3 9 11-13h-8z" fill="#16a34a"/>
-  <rect x="50" y="88" width="22" height="22" rx="11" fill="#14532d"/>
+  <rect x="34" y="40" width="54" height="118" rx="10" fill="#006b2c"/>
+  <rect x="44" y="52" width="34" height="26" rx="4" fill="#b1f2be"/>
+  <path d="M63 55 53 68h8l-3 9 11-13h-8z" fill="#00873a"/>
+  <rect x="50" y="88" width="22" height="22" rx="11" fill="#005320"/>
   <!-- cable -->
   <path d="M61 99 C 110 99, 100 150, 135 140 S 150 120, 156 120" fill="none" stroke="#1f2937" stroke-width="5" stroke-linecap="round"/>
   <!-- coche -->

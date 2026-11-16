@@ -1,6 +1,6 @@
 import { api, protegerPagina } from './api.js';
 import { pintarMenu } from './menu.js';
-import { mostrarMensaje, formatearFecha } from './utilidades.js';
+import { mostrarMensaje, formatearFecha, textoHora } from './utilidades.js';
 
 const usuario = protegerPagina('admin');
 
@@ -55,7 +55,7 @@ function pintarIncidencias(incidencias) {
 
     html += `
       <tr>
-        <td>${formatearFecha(i.date)} a las ${String(i.hour).padStart(2, '0')}:00</td>
+        <td>${formatearFecha(i.date)} a las ${textoHora(i.hour)}</td>
         <td>${i.chargerId.name}</td>
         <td>${i.reporterId.name}</td>
         <td>${ocupaba}</td>
