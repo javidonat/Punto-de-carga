@@ -40,7 +40,7 @@ const createIncident = async (user, { ids, description = "" }) => {
     shiftIds: ids,
     description,
   });
-  await notificationsService.notifyAdmins(`Nueva incidencia: a un usuario le han ocupado su punto de recarga el ${shortDate(first.date)}`);
+  await notificationsService.notifyAdmins(`Nueva incidencia: a un usuario le han ocupado su punto de recarga el ${shortDate(first.date)}`, incident._id);
   return incident;
 };
 
@@ -75,6 +75,7 @@ const resolveIncident = async (id, { status, reportedUserId }) => {
   if (status === "accepted" && incident.reportedUserId) {
     await penaltiesService.penalize(incident.reportedUserId, "blocking", `ocupaste un punto de recarga que no era tuyo el ${day}`);
   }
+  await notificationsService.clearIncident(incident._id);
   const result = status === "accepted" ? "aceptada" : "rechazada";
   await notificationsService.notify(incident.reporterId, `Tu incidencia del ${day} ha sido ${result}`);
   return incident;

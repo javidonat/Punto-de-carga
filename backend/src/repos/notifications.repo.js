@@ -21,4 +21,9 @@ const markAllRead = (userId) => {
   return Notification.updateMany({ userId, read: false }, { read: true });
 };
 
-export default { createMany, findUnreadByUser, markRead, markAllRead };
+// Los avisos de una incidencia (a todos los admins), cuando ya se ha resuelto
+const markReadByIncident = (incidentId) => {
+  return Notification.updateMany({ incidentId, read: false }, { read: true });
+};
+
+export default { createMany, findUnreadByUser, markRead, markAllRead, markReadByIncident };

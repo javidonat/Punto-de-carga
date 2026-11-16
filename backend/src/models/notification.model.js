@@ -9,6 +9,8 @@ const notificationSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     message: { type: String, required: true },
     read: { type: Boolean, default: false },
+    // Si el aviso es de una incidencia (los de los admins): al resolverla se marca como leído solo
+    incidentId: { type: Schema.Types.ObjectId, ref: "Incident", default: null },
   },
   { timestamps: true }
 );
