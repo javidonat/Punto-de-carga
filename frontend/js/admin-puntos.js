@@ -5,7 +5,7 @@ import { mostrarMensaje } from './utilidades.js';
 const usuario = protegerPagina('admin');
 
 let puntosCargados = []; // los puntos que hay en la tabla para poder rellenar el formulario al editar
-let editandoId = null; // id del punto que se está editando
+let editandoId = null; // id del punto que se está editando y si es null pues es que se está creando uno nuevo
 
 if (usuario) {
   pintarMenu(usuario);
@@ -61,19 +61,28 @@ function empezarEdicion(punto) {
   document.getElementById('potencia').value = potencia;
   document.getElementById('titulo-formulario').textContent = `Editar ${punto.name}`;
   document.getElementById('enviar').textContent = 'Guardar cambios';
-  document.getElementById('cancelar-edicion').hidden = false;
+  document.getElementById('formulario').hidden = false;
   document.getElementById('nombre').focus();
 }
 
-// Vacíar el formulario y dejarlo otra vez en modo añadir
+// El mismo formulario vacío para añadir un punto nuevo
+function empezarCreacion() {
+  editandoId = null;
+  document.getElementById('formulario').reset();
+  document.getElementById('titulo-formulario').textContent = 'Nuevo punto de recarga';
+  document.getElementById('enviar').textContent = 'Añadir';
+  document.getElementById('formulario').hidden = false;
+  document.getElementById('nombre').focus();
+}
+
+// Vacía el formulario y lo vuelve a esconder
 function terminarEdicion() {
   editandoId = null;
   document.getElementById('formulario').reset();
-  document.getElementById('titulo-formulario').textContent = 'Añadir punto de recarga';
-  document.getElementById('enviar').textContent = 'Añadir';
-  document.getElementById('cancelar-edicion').hidden = true;
+  document.getElementById('formulario').hidden = true;
 }
 
+document.getElementById('nuevo').addEventListener('click', empezarCreacion);
 document.getElementById('cancelar-edicion').addEventListener('click', terminarEdicion);
 
 // Botones de las filas con un solo listener para toda la tabla

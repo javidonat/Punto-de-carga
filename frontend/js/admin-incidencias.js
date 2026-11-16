@@ -11,7 +11,7 @@ const ESTADOS = {
   rejected: { texto: 'Rechazada', clase: 'mal' },
 };
 
-let usuarios = []; // los usuarios que se pueden elegir como "quien ocupaba el sitio"
+let usuarios = []; // los usuarios que se pueden elegir como quien ocupaba el sitio
 
 if (usuario) {
   pintarMenu(usuario);
@@ -42,7 +42,7 @@ function pintarIncidencias(incidencias) {
     const estado = ESTADOS[i.status];
     // reportedUserId es null si nadie tenía ese punto la hora anterior
     let ocupaba = i.reportedUserId ? i.reportedUserId.name : 'No se sabe';
-    // Solo las abiertas se pueden aceptar o rechazar, y antes el admin puede cambiar quién ocupaba el sitio
+    // Solo las abiertas se pueden aceptar o rechazar y antes el admin puede cambiar quién ocupaba el sitio
     let botones = '';
     if (i.status === 'open') {
       ocupaba = selectorOcupaba(i);
@@ -67,7 +67,7 @@ function pintarIncidencias(incidencias) {
   tbody.innerHTML = html;
 }
 
-// Desplegable con los usuarios (menos quien avisa). Sale marcado el que ha deducido el servidor
+// Desplegable con los usuarios menos quien avisa y sale marcado el que ha deducido el servidor
 function selectorOcupaba(i) {
   const actual = i.reportedUserId ? i.reportedUserId._id : '';
   let opciones = '<option value="">No se sabe</option>';
@@ -81,7 +81,7 @@ function selectorOcupaba(i) {
   return `<select id="ocupaba-${i._id}">${opciones}</select>`;
 }
 
-// Mensaje después de aceptar o rechazar. Solo se penaliza si se sabe quién ocupaba el sitio
+// Mensaje después de aceptar o rechazar solo se penaliza si se sabe quién ocupaba el sitio
 function textoResultado(incidencia) {
   if (incidencia.status === 'rejected') {
     return 'Incidencia rechazada.';
@@ -92,9 +92,7 @@ function textoResultado(incidencia) {
   return 'Incidencia aceptada. No se sabe quién ocupaba el sitio, así que no se penaliza a nadie.';
 }
 
-// ---------- Nueva incidencia a mano ----------
-
-// Rellena los desplegables del formulario y lo enseña
+// Incidencia a mano rellena los desplegables del formulario y lo enseña
 async function abrirFormulario() {
   try {
     const puntos = await api('/chargers');
@@ -153,7 +151,7 @@ document.getElementById('form-incidencia').addEventListener('submit', async (eve
   }
 });
 
-// ---------- Aceptar o rechazar ----------
+// Aceptar o rechazar
 
 document.getElementById('incidencias').addEventListener('click', async (evento) => {
   const { id, estado } = evento.target.dataset;
@@ -161,7 +159,7 @@ document.getElementById('incidencias').addEventListener('click', async (evento) 
     return;
   }
   try {
-    // El que esté elegido en el desplegable ('' = no se sabe → null)
+    // El que esté elegido en el desplegable '' es no se sabe que es null
     const elegido = document.getElementById(`ocupaba-${id}`).value;
     const datos = { status: estado, reportedUserId: elegido || null };
     const incidencia = await api(`/incidents/${id}`, 'PATCH', datos);

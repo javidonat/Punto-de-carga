@@ -71,8 +71,8 @@ async function cargarHistoricoUsuarios() {
   }
 }
 
-// Gráfica (ampliación) con Chart.js. El usuario ve sus horas y el admin las de todos
-let grafica = null; // la gráfica dibujada, para borrarla antes de dibujar otra
+// Gráfica con Chart.js, el usuario ve sus horas y el admin las de todos
+let grafica = null; // la gráfica dibujada para borrarla antes de dibujar otra
 
 async function cargarGrafica() {
   const periodo = document.getElementById('periodo').value;
@@ -90,7 +90,7 @@ async function cargarGrafica() {
       type: 'bar',
       data: {
         labels: datos.map((d) => d.period),
-        datasets: [{ label: 'Horas cargadas', data: datos.map((d) => d.hours), backgroundColor: '#16a34a', borderRadius: 6 }],
+        datasets: [{ label: 'Horas cargadas', data: datos.map((d) => d.hours), backgroundColor: '#00873a', borderRadius: 6 }],
       },
       options: {
         aspectRatio: 3, // más ancha que alta
@@ -103,7 +103,7 @@ async function cargarGrafica() {
   }
 }
 
-// Admin: desplegable para ver la gráfica de todos o de un usuario
+// Admin desplegable para ver la gráfica de todos o de un usuario
 function rellenarUsuariosGrafica(usuarios) {
   const select = document.getElementById('usuario-grafica');
   for (const u of usuarios) {
