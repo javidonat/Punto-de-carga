@@ -5,7 +5,7 @@ import { mostrarMensaje } from './utilidades.js';
 const usuario = protegerPagina('admin');
 
 let puntosCargados = []; // los puntos que hay en la tabla para poder rellenar el formulario al editar
-let editandoId = null; // id del punto que se está editando y si es null pues es que se está creando uno nuevo
+let editandoId = null; // id del punto que se está editando y si es null se está creando uno nuevo
 
 if (usuario) {
   pintarMenu(usuario);
@@ -49,7 +49,7 @@ function pintarPuntos(puntos) {
   document.getElementById('puntos').innerHTML = html;
 }
 
-// Rellena el formulario con los datos del punto y ponerlo en modo editar
+// Rellena el formulario con los datos del punto para editarlo
 function empezarEdicion(punto) {
   editandoId = punto._id;
   let potencia = '';
@@ -118,7 +118,7 @@ document.getElementById('puntos').addEventListener('click', async (evento) => {
   }
 });
 
-// Formulario para añadir uno nuevo
+// Guardar el formulario sirve para añadir y para editar
 document.getElementById('formulario').addEventListener('submit', async (evento) => {
   evento.preventDefault();
 

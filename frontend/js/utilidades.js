@@ -37,18 +37,18 @@ export function tituloSemana(lunes) {
   return `Semana del ${formatearFecha(lunes)} al ${formatearFecha(sumarDias(lunes, 6))}`;
 }
 
-// ¿Ha empezado ya el turno de ese día a esa hora?
+// Dice si ya ha empezado el turno de ese día a esa hora
 export function yaHaEmpezado(fecha, hora) {
   return fecha < hoy() || (fecha === hoy() && hora <= new Date().getHours());
 }
 
-// Lunes de la semana de una fecha AAAA-MM-DD
+// Lunes de la semana de una fecha
 export function lunesDe(fecha) {
   const diaSemana = (new Date(`${fecha}T12:00:00`).getDay() + 6) % 7; // 0 es lunes y 6 es domingo
   return sumarDias(fecha, -diaSemana);
 }
 
-// "09:00" a partir del número 9
+// Pasa el número 9 a 09:00
 export function textoHora(hora) {
   return `${String(hora).padStart(2, '0')}:00`;
 }

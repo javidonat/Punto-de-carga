@@ -71,13 +71,13 @@ async function cargarHistoricoUsuarios() {
   }
 }
 
-// Gráfica con Chart.js, el usuario ve sus horas y el admin las de todos
+// Gráfica con Chart.js el usuario ve sus horas y el admin las de todos
 let grafica = null; // la gráfica dibujada para borrarla antes de dibujar otra
 
 async function cargarGrafica() {
   const periodo = document.getElementById('periodo').value;
   let ruta = `/history/stats?period=${periodo}`;
-  const elegido = document.getElementById('usuario-grafica').value; // solo el admin: '' = todos
+  const elegido = document.getElementById('usuario-grafica').value; // solo admin y vacío es todos
   if (elegido) {
     ruta += `&userId=${elegido}`;
   }
@@ -103,7 +103,7 @@ async function cargarGrafica() {
   }
 }
 
-// Admin desplegable para ver la gráfica de todos o de un usuario
+// Desplegable del admin para ver la gráfica de todos o de un usuario
 function rellenarUsuariosGrafica(usuarios) {
   const select = document.getElementById('usuario-grafica');
   for (const u of usuarios) {

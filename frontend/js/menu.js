@@ -21,7 +21,7 @@ export function pintarMenu(usuario) {
     }
     const a = document.createElement('a');
     a.href = enlace.href;
-    // El icono es un <span> con el nombre del icono de Material Symbols
+    // El icono es un span con el nombre del icono de Material Symbols
     a.innerHTML = `<span class="material-symbols-outlined">${enlace.icono}</span> ${enlace.texto}`;
     const paginaActual = location.pathname.split('/').pop();
     if (paginaActual === enlace.href) {

@@ -13,7 +13,7 @@ export function borrarSesion() {
   localStorage.removeItem('usuario');
 }
 
-// Hace una petición a la API y devuelve los datos en JSON y si el servidor contesta con error tira ese error para poder enseñarlo con try/catch.
+// Hace la petición a la API y devuelve los datos y si hay error lo lanza para el try catch
 export async function api(ruta, metodo = 'GET', datos = null) {
   const opciones = {
     method: metodo,
@@ -34,11 +34,11 @@ export async function api(ruta, metodo = 'GET', datos = null) {
   if (!respuesta.ok) {
     throw new Error(json.message || 'Algo ha ido mal');
   }
-  // El backend contesta { ok, message, data } pero devolvemos solo data que es lo que usan las pantallas
+  // El backend contesta ok message y data pero solo devolvemos data que es lo que usan las pantallas
   return json.data;
 }
 
-// Para las páginas que necesitan sesión si no hay usuario vuelve al login, rol admin o user si la página es solo para ese rol y null para todos
+// Para las páginas con sesión si no hay usuario vuelve al login y rol dice si es solo para admin o user
 export function protegerPagina(rol = null) {
   const usuario = obtenerUsuario();
   if (!usuario) {
@@ -56,7 +56,7 @@ export async function cerrarSesion() {
   try {
     await api('/auth/logout', 'POST');
   } catch (e) {
-    // Si el token ya no valía, da igual borramos la sesión igualmente.
+    // Si el token ya no valía da igual porque borramos la sesión igualmente
   }
   borrarSesion();
   window.location.href = 'index.html';

@@ -67,7 +67,7 @@ function pintarIncidencias(incidencias) {
   tbody.innerHTML = html;
 }
 
-// Desplegable con los usuarios menos quien avisa y sale marcado el que ha deducido el servidor
+// Desplegable con los usuarios menos el que avisa y sale marcado el que ha puesto el servidor
 function selectorOcupaba(i) {
   const actual = i.reportedUserId ? i.reportedUserId._id : '';
   let opciones = '<option value="">No se sabe</option>';
@@ -81,7 +81,7 @@ function selectorOcupaba(i) {
   return `<select id="ocupaba-${i._id}">${opciones}</select>`;
 }
 
-// Mensaje después de aceptar o rechazar solo se penaliza si se sabe quién ocupaba el sitio
+// Mensaje al aceptar o rechazar y solo se penaliza si se sabe quién ocupaba el sitio
 function textoResultado(incidencia) {
   if (incidencia.status === 'rejected') {
     return 'Incidencia rechazada.';
@@ -92,7 +92,7 @@ function textoResultado(incidencia) {
   return 'Incidencia aceptada. No se sabe quién ocupaba el sitio, así que no se penaliza a nadie.';
 }
 
-// Incidencia a mano rellena los desplegables del formulario y lo enseña
+// Incidencia a mano rellena los desplegables y enseña el formulario
 async function abrirFormulario() {
   try {
     const puntos = await api('/chargers');
@@ -159,7 +159,7 @@ document.getElementById('incidencias').addEventListener('click', async (evento) 
     return;
   }
   try {
-    // El que esté elegido en el desplegable '' es no se sabe que es null
+    // El elegido en el desplegable y si está vacío es que no se sabe y se manda null
     const elegido = document.getElementById(`ocupaba-${id}`).value;
     const datos = { status: estado, reportedUserId: elegido || null };
     const incidencia = await api(`/incidents/${id}`, 'PATCH', datos);

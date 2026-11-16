@@ -5,7 +5,7 @@ import { mostrarMensaje, formatearFecha } from './utilidades.js';
 const usuario = protegerPagina('admin');
 
 let usuariosCargados = []; // los de la tabla para rellenar el formulario al editar
-let editandoId = null; // id del usuario que se está editando (null = se está creando uno nuevo)
+let editandoId = null; // id del usuario que se está editando y si es null se está creando uno nuevo
 
 if (usuario) {
   pintarMenu(usuario);
@@ -21,7 +21,7 @@ async function cargarUsuarios() {
   }
 }
 
-// Activo, de baja o ausente hasta el 22/11 absence viene del backend: su ausencia de hoy o null
+// Texto de la columna estado y absence es la ausencia de hoy que manda el servidor o null
 function textoEstado(u) {
   if (!u.isActive) {
     return 'De baja';
@@ -35,7 +35,7 @@ function textoEstado(u) {
   return 'Activo';
 }
 
-// Los botones de una fila, en la fila del propio admin no hay botones.
+// Los botones de cada fila y en la del propio admin no hay
 function botonesUsuario(u) {
   if (u._id === usuario._id) {
     return '(tú)';
@@ -77,7 +77,7 @@ function empezarEdicion(u) {
   document.getElementById('email').value = u.email;
   document.getElementById('password').value = '';
   document.getElementById('titulo-formulario').textContent = `Editar ${u.name}`;
-  // Al editar, la contraseña es opcional y el rol se cambia con su botón de la tabla
+  // Al editar la contraseña no es obligatoria y el rol se cambia con su botón
   document.getElementById('password').required = false;
   document.getElementById('texto-password').textContent = 'Contraseña nueva';
   document.getElementById('password').placeholder = 'Déjala vacía para no cambiarla';
@@ -92,7 +92,7 @@ function empezarCreacion() {
   editandoId = null;
   document.getElementById('formulario').reset();
   document.getElementById('titulo-formulario').textContent = 'Nuevo usuario';
-  // Al crear, la contraseña es obligatoria y se puede elegir el rol
+  // Al crear la contraseña es obligatoria y se puede elegir el rol
   document.getElementById('password').required = true;
   document.getElementById('texto-password').textContent = 'Contraseña';
   document.getElementById('password').placeholder = '';

@@ -1,16 +1,14 @@
-/* Estilos comunes de toda la aplicación
-   Diseño inspirado en Stitch: fondo azulado muy claro, tarjetas blancas
-   redondeadas, verde de "energía limpia" y ámbar para los avisos. */
+/* Estilos de toda la aplicación con el diseño sacado de Stitch */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-/* Iconos de Google: se escriben como texto, por ejemplo <span class="material-symbols-outlined">bolt</span> */
+/* Iconos de Google que se ponen escribiendo el nombre del icono */
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block');
 
-/* ---------- Colores y medidas que se repiten ---------- */
+/* Colores y medidas que se repiten */
 :root {
-  --verde: #006b2c;          /* color principal: botones, enlaces */
+  --verde: #006b2c;          /* color principal de botones y enlaces */
   --verde-medio: #00873a;    /* hover y degradados */
   --verde-oscuro: #005320;
-  --verde-claro: #b1f2be;    /* fondos de "todo bien" */
+  --verde-claro: #b1f2be;    /* fondos de cosas que van bien */
   --verde-suave: #eaf8ee;
   --ambar: #feb63c;          /* avisos y cosas pendientes */
   --ambar-claro: #ffddb0;
@@ -18,7 +16,7 @@
   --rojo: #ba1a1a;
   --rojo-claro: #ffdad6;
   --fondo: #f8f9ff;          /* fondo de la página */
-  --fondo-suave: #eff4ff;    /* celdas, cabeceras de tabla */
+  --fondo-suave: #eff4ff;    /* celdas y cabeceras de tabla */
   --fondo-medio: #e5eeff;    /* botones secundarios */
   --fondo-fuerte: #dce9ff;
   --texto: #0b1c30;
@@ -63,10 +61,10 @@ h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; }
 .subtitulo { color: var(--gris); margin: 0 0 24px; }
 a { color: var(--verde); font-weight: 600; }
 
-/* Números alineados (horas, fechas) para que no "bailen" */
+/* Números alineados para que no se muevan */
 strong, .tabla td, .semana, .horario { font-variant-numeric: tabular-nums; }
 
-/* ---------- Formularios ---------- */
+/* Formularios */
 label { display: block; margin: 16px 0 6px; font-weight: 600; font-size: 14px; }
 
 input, select {
@@ -87,13 +85,13 @@ input:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(0, 135, 58, 0.18);
 }
 
-/* Input con icono delante (login y registro) */
+/* Input con icono delante en login y registro */
 .campo { position: relative; }
 .campo .material-symbols-outlined { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gris-claro); pointer-events: none; }
 .campo input { padding-left: 44px; }
 .campo:focus-within .material-symbols-outlined { color: var(--verde); }
 
-/* ---------- Botones ---------- */
+/* Botones */
 button {
   width: 100%;
   margin-top: 18px;
@@ -121,7 +119,7 @@ button.peligro:hover { background: #ffc6bf; }
 .error { color: var(--rojo); min-height: 1em; margin: 8px 0 0; font-size: 14px; font-weight: 500; }
 .exito { color: var(--verde); min-height: 1em; margin: 8px 0 0; font-size: 14px; font-weight: 600; }
 
-/* ---------- Login y registro ---------- */
+/* Login y registro */
 .pantalla-centrada {
   min-height: 100vh;
   display: flex;
@@ -186,7 +184,7 @@ button.peligro:hover { background: #ffc6bf; }
 /* Imagen genérica */
 .ilustracion { display: block; width: 100%; max-width: 260px; margin: 0 auto 16px; }
 
-/* ---------- Cabecera de las páginas con sesión ---------- */
+/* Cabecera de las páginas con sesión */
 .cabecera {
   position: sticky;
   top: 0;
@@ -203,7 +201,7 @@ button.peligro:hover { background: #ffc6bf; }
 .logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 800; font-size: 18px; letter-spacing: -0.01em; text-decoration: none; }
 .logo img { width: 36px; height: 36px; border-radius: 11px; box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5); }
 
-/* El menú es una "cápsula" translúcida con los enlaces como pastillas */
+/* El menú es una cápsula con los enlaces redondos */
 .cabecera nav {
   display: flex;
   gap: 2px;
@@ -231,7 +229,7 @@ button.peligro:hover { background: #ffc6bf; }
 
 .contenido { max-width: 1040px; margin: 0 auto; padding: 36px 20px 56px; }
 
-/* ---------- Inicio: tarjeta de bienvenida ---------- */
+/* Tarjeta de bienvenida del inicio */
 .bienvenida {
   position: relative;
   display: flex;
@@ -262,7 +260,7 @@ button.peligro:hover { background: #ffc6bf; }
 .bienvenida .subtitulo { margin: 0; }
 .bienvenida .ilustracion { position: relative; width: 280px; margin: 0; padding: 16px; background: var(--fondo-suave); border-radius: 20px; }
 
-/* ---------- Mi horario: cuadrícula de horas ---------- */
+/* Cuadrícula de horas de mi horario */
 .horario {
   border-collapse: separate;
   border-spacing: 4px;
@@ -287,12 +285,12 @@ button.peligro:hover { background: #ffc6bf; }
 }
 .horario td:hover { background: var(--verde-claro); transform: scale(1.04); }
 .horario td.marcada { background: var(--verde-medio); color: white; }
-/* Tick dentro de las horas marcadas, con la fuente de iconos */
+/* Tick dentro de las horas marcadas */
 .horario td.marcada::after { content: 'check'; font-family: 'Material Symbols Outlined'; font-size: 18px; vertical-align: middle; }
 
 #guardar { width: auto; min-width: 200px; }
 
-/* ---------- Tarjetas de turnos, avisos y ausencias ---------- */
+/* Tarjetas de turnos avisos y ausencias */
 .semana {
   display: flex;
   align-items: center;
@@ -349,7 +347,7 @@ button.peligro:hover { background: #ffc6bf; }
 .aviso.turno::before { content: 'hourglass_top'; position: static; width: auto; background: none; }
 .aviso.turno p { flex: 1; }
 
-/* ---------- Tablas ---------- */
+/* Tablas */
 .tabla { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); }
 .tabla th, .tabla td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--fondo-medio); font-size: 14px; }
 .tabla th { background: var(--fondo-suave); color: var(--gris); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -360,18 +358,18 @@ button.peligro:hover { background: #ffc6bf; }
 
 #leer-todos { margin-bottom: 12px; }
 .acciones { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-/* En una celda de tabla no puede ser flex (se descuadra la fila): los botones van en línea */
+/* En una celda no puede ser flex porque se descuadra la fila */
 .tabla td.acciones { display: table-cell; text-align: right; white-space: nowrap; }
 .tabla td.acciones button { margin: 2px; }
 
-/* Etiquetas de estado (pastillas) */
+/* Etiquetas de estado */
 .estado { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
 .estado::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .estado.ok { background: var(--verde-claro); color: var(--verde-oscuro); }
 .estado.mal { background: var(--rojo-claro); color: var(--rojo); }
 .estado.abierta { background: var(--ambar-claro); color: var(--ambar-texto); }
 
-/* ---------- Formularios en tarjeta (admin, ausencias, cuenta) ---------- */
+/* Formularios en tarjeta */
 .formulario-admin { max-width: 460px; background: white; padding: 24px 28px; border-radius: var(--radio); box-shadow: var(--sombra); margin-bottom: 24px; }
 .formulario-admin h2 { margin-top: 0; }
 .formulario-admin h3 { margin-bottom: 0; }
@@ -386,11 +384,11 @@ button.peligro:hover { background: #ffc6bf; }
 .horas button:hover { background: var(--verde-claro); }
 .horas button.marcada { background: var(--verde-medio); color: white; }
 
-/* Botones rápidos de las ausencias: en fila y del tamaño de su texto */
+/* Botones rápidos de las ausencias en fila */
 .botones-ausencia { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 .botones-ausencia button { width: auto; margin-top: 0; border-radius: 999px; }
 
-/* ---------- Móvil ---------- */
+/* Móvil */
 @media (max-width: 640px) {
   h1 { font-size: 26px; }
   .cabecera { padding: 10px 16px; }

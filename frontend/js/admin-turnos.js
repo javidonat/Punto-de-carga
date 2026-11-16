@@ -3,8 +3,8 @@ import { pintarMenu } from './menu.js';
 import { mostrarMensaje, formatearFecha, sumarDias, hoy, tituloSemana, yaHaEmpezado, textoHora } from './utilidades.js';
 
 const usuario = protegerPagina('admin');
-let semana = ''; // lunes de la semana que se ve '' es la actual
-let horaElegida = null; // la hora del botón marcado en el formulario (null = ninguna)
+let semana = ''; // lunes de la semana que se ve y vacío es la actual
+let horaElegida = null; // la hora marcada en el formulario y null es ninguna
 
 if (usuario) {
   pintarMenu(usuario);
@@ -18,7 +18,7 @@ if (usuario) {
 async function cargarTurnos() {
   let ruta = '/shifts';
   if (semana) {
-    ruta += `?week=${semana}`; // query string se puede comprobar en f12 network
+    ruta += `?week=${semana}`; // query string se puede ver en f12 network
   }
 
   try {
@@ -105,13 +105,13 @@ document.getElementById('generar').addEventListener('click', async () => {
   }
 });
 
-// El formulario de turno a mano empieza oculto este botón lo enseña o lo esconde
+// El formulario del turno a mano empieza oculto y este botón lo enseña o lo esconde
 document.getElementById('mostrar-formulario').addEventListener('click', () => {
   const formulario = document.getElementById('formulario');
   formulario.hidden = !formulario.hidden;
 });
 
-// Rellena los desplegables con los usuarios activos y los puntos en servicio, y pinta los botones de las horas
+// Rellena los desplegables con usuarios y puntos y pinta los botones de las horas
 async function cargarFormulario() {
   try {
     const usuarios = await api('/users');
@@ -158,7 +158,7 @@ document.getElementById('horas').addEventListener('click', (evento) => {
     marcada.classList.remove('marcada');
   }
   boton.classList.add('marcada');
-  horaElegida = Number(boton.dataset.hora); // "9" a 9
+  horaElegida = Number(boton.dataset.hora); // pasa el texto a número
 });
 
 document.getElementById('formulario').addEventListener('submit', async (evento) => {
@@ -180,14 +180,14 @@ document.getElementById('formulario').addEventListener('submit', async (evento) 
   try {
     await api('/shifts', 'POST', datos);
     mostrarMensaje('Turno añadido', false);
-    semana = fecha; // enseña la semana del turno nuevo el backend usa el lunes de ese día
+    semana = fecha; // enseña la semana del turno nuevo y el backend coge el lunes de ese día
     cargarTurnos();
   } catch (error) {
     mostrarMensaje(error.message, true);
   }
 });
 
-// Ajustes del reparto (ampliación): cómo se elige a quién dar cada hora y los límites
+// Ajustes del reparto como se elige a quién dar cada hora y los límites
 
 async function cargarAjustes() {
   try {

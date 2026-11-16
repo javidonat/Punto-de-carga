@@ -10,7 +10,7 @@ if (usuario) {
   document.getElementById('email').textContent = usuario.email;
 }
 
-// Cambiar la contraseña (ampliación). El servidor devuelve un token nuevo porque el viejo deja de valer
+// Cambiar la contraseña y el servidor devuelve un token nuevo porque el viejo ya no vale
 document.getElementById('form-password').addEventListener('submit', async (evento) => {
   evento.preventDefault();
   const actual = document.getElementById('actual').value;

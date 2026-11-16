@@ -4,7 +4,7 @@ import { mostrarMensaje, formatearFecha, hoy, sumarDias, lunesDe } from './utili
 
 const DIAS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 const HORA_INICIO = 7;
-const HORA_FIN = 22; //porque la última de es de 21 a 22
+const HORA_FIN = 22; // porque la última es de 21 a 22
 
 const usuario = protegerPagina('user');
 
@@ -68,7 +68,7 @@ async function cargarAusencias() {
   }
 }
 
-// El 16/11, Del 16/11 al 22/11 o Desde el 16/11, sin fecha de vuelta
+// Texto de cada ausencia según si tiene fecha de vuelta o no
 function textoAusencia(ausencia) {
   if (ausencia.to === null) {
     return `Desde el ${formatearFecha(ausencia.from)}, sin fecha de vuelta`;
@@ -97,7 +97,7 @@ function pintarAusencias(ausencias) {
   contenedor.innerHTML = html;
 }
 
-// La usan los botones rápidos y el formulario, hasta = null -> indefinida
+// La usan los botones rápidos y el formulario y si hasta es null es indefinida
 async function crearAusencia(desde, hasta) {
   try {
     await api('/absences/me', 'POST', { from: desde, to: hasta });
@@ -142,7 +142,7 @@ document.getElementById('form-ausencia').addEventListener('submit', (evento) => 
   document.getElementById('form-ausencia').reset();
 });
 
-// Quitar una ausencia vuelves a entrar en el reparto
+// Quitar una ausencia y vuelves a entrar en el reparto
 document.getElementById('ausencias').addEventListener('click', async (evento) => {
   const id = evento.target.dataset.id;
   if (!id) {

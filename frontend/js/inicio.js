@@ -24,7 +24,7 @@ async function cargarResumenUsuario() {
     await cargarPendientes();
     await cargarAvisos();
 
-    // 1 Ha rellenado su horario?
+    // 1 Ha rellenado su horario
     const slots = await api('/availability/me');
     if (slots.length === 0) {
       document.getElementById('aviso').innerHTML =
@@ -173,7 +173,7 @@ document.getElementById('pendientes').addEventListener('click', async (evento) =
   }
 });
 
-// ---------- Ausencia de hoy (usuarios) ----------
+// Ausencia de hoy
 
 async function cargarAusencia() {
   const ausencias = await api('/absences/me');
